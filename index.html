@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Estudos Focado: Guia Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Warm Neutrals (Stone, Teal) -->
+    <!-- Application Structure Plan: A single-page, vertical timeline/process flow using interactive cards for each step. The structure is divided into three phases, mirroring the source report, to guide the user sequentially. This interactive checklist format was chosen over a static list to increase engagement, provide a sense of progress, and make the procedural information more digestible and actionable. -->
+    <!-- Visualization & Content Choices: Report Info: 9-step study plan. -> Goal: Organize & Inform. -> Viz/Presentation Method: Interactive cards with icons (Unicode), titles, and descriptions, organized into three sections representing the phases. A dynamic progress bar at the top will visualize completion. -> Interaction: Clicking a card marks it as 'complete' via a checkbox, updating the progress bar. This provides immediate feedback and motivation. -> Justification: This transforms a passive guide into an active tool, enhancing user engagement and task completion. -> Library/Method: HTML/Tailwind for structure and style, Vanilla JS for interactivity (event handling, DOM manipulation). No charting libraries needed. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .task-card.completed {
+            background-color: #f0fdfa; /* teal-50 */
+            border-color: #14b8a6; /* teal-500 */
+        }
+        .task-card.completed .task-number {
+            background-color: #14b8a6; /* teal-500 */
+            color: white;
+        }
+        .task-card.completed .task-title {
+            text-decoration: line-through;
+            color: #57534e; /* stone-600 */
+        }
+    </style>
+</head>
+<body class="bg-stone-100 text-stone-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-teal-800">Plano de Estudos Focado</h1>
+            <p class="mt-2 text-lg text-stone-600">Um guia interativo para uma sessão de estudos eficaz.</p>
+        </header>
+
+        <div id="progress-section" class="mb-8">
+            <div class="flex justify-between mb-1">
+                <span class="text-base font-medium text-teal-700">Progresso</span>
+                <span id="progress-text" class="text-sm font-medium text-teal-700">0%</span>
+            </div>
+            <div class="w-full bg-stone-200 rounded-full h-2.5">
+                <div id="progress-bar" class="bg-teal-600 h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <main class="space-y-12">
+            
+            <section id="phase-1">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-teal-700">Fase 1: Foco Total e Absorção</h2>
+                    <p class="mt-1 text-stone-600">O objetivo aqui é a imersão completa no conteúdo, eliminando todas as fontes de distração para maximizar a concentração e a compreensão inicial.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="1">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">1</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Ativar o Detox Digital 📵</h3>
+                                <p class="text-stone-600 mt-1">Programe o modo "não perturbe" em seus dispositivos por <strong>duas horas</strong>. A meta é criar um ambiente livre de interrupções.</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="2">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">2</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Leitura e Anotações 📖</h3>
+                                <p class="text-stone-600 mt-1">Com o computador e celular desligados, leia o material principal. Faça anotações à mão, com calma, destacando os pontos importantes.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="phase-2">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-teal-700">Fase 2: Conteúdo Digital e Prática</h2>
+                    <p class="mt-1 text-stone-600">Agora, use as ferramentas digitais de forma controlada para aprofundar o conhecimento e testar sua compreensão através de exercícios práticos.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="3">
+                        <div class="flex items-start">
+                           <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">3</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Organizar o Ambiente Digital 🧹</h3>
+                                <p class="text-stone-600 mt-1">Use uma extensão como a "xtab" para garantir que você comece com <strong>zero abas abertas</strong> no navegador, mantendo o foco.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="4">
+                        <div class="flex items-start">
+                           <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">4</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Assistir à Videoaula 💻</h3>
+                                <p class="text-stone-600 mt-1">Abra apenas a aba necessária. Assista de forma ativa, pausando para complementar suas anotações sempre que preciso.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="5">
+                        <div class="flex items-start">
+                           <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">5</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Prática com Exercícios 📝</h3>
+                                <p class="text-stone-600 mt-1">Acesse a lista de exercícios (em PDF) e resolva o maior número de questões possível, marcando as que teve mais dificuldade.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="phase-3">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-teal-700">Fase 3: Síntese e Organização</h2>
+                    <p class="mt-1 text-stone-600">Nesta etapa final, você irá consolidar o aprendizado, criando materiais de revisão e organizando todo o conhecimento para consultas futuras.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="6">
+                        <div class="flex items-start">
+                           <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">6</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Elaboração do Resumo 🧠</h3>
+                                <p class="text-stone-600 mt-1">Use uma IA como o Gemini para criar um resumo conciso e bem estruturado a partir das suas anotações, destacando os conceitos-chave.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="7">
+                        <div class="flex items-start">
+                           <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">7</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Criação de Flashcards ✨</h3>
+                                <p class="text-stone-600 mt-1">Peça para a IA transformar os pontos principais do seu resumo em perguntas e respostas diretas, criando flashcards para memorização.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="8">
+                        <div class="flex items-start">
+                           <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">8</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Upload para o GitHub 🚀</h3>
+                                <p class="text-stone-600 mt-1">Organize os materiais produzidos e faça o upload para um repositório. Isso cria um backup e um portfólio dos seus estudos.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="task-card bg-white p-4 rounded-lg shadow-md border-l-4 border-stone-200 cursor-pointer transition-all duration-300 hover:shadow-lg" data-task-id="9">
+                        <div class="flex items-start">
+                           <div class="flex-shrink-0 mr-4">
+                                <div class="task-number h-10 w-10 flex items-center justify-center rounded-full bg-stone-200 text-stone-700 font-bold text-lg transition-colors duration-300">9</div>
+                            </div>
+                            <div class="flex-grow">
+                                <h3 class="task-title font-bold text-lg text-stone-800 transition-colors duration-300">Atualizar o Índice 🗂️</h3>
+                                <p class="text-stone-600 mt-1">Adicione links e descrições dos novos materiais no seu arquivo `índice`. Isso mantém seu conhecimento organizado e fácil de encontrar.</p>
+                            </div>
+                             <div class="ml-4 flex-shrink-0">
+                                <input type="checkbox" class="h-6 w-6 rounded border-gray-300 text-teal-600 focus:ring-teal-500 pointer-events-none">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const taskCards = document.querySelectorAll('.task-card');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const totalTasks = taskCards.length;
+            let completedTasks = 0;
+
+            const updateProgress = () => {
+                const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+                progressBar.style.width = `${percentage}%`;
+                progressText.textContent = `${percentage}%`;
+            };
+
+            taskCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    card.classList.toggle('completed');
+                    const checkbox = card.querySelector('input[type="checkbox"]');
+                    
+                    if (card.classList.contains('completed')) {
+                        checkbox.checked = true;
+                        completedTasks++;
+                    } else {
+                        checkbox.checked = false;
+                        completedTasks--;
+                    }
+                    updateProgress();
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
